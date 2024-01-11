@@ -1,0 +1,141 @@
+.post-container {
+    display: flex;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+	width: 1000px;
+}
+
+.post-image {
+    flex: 1;
+    padding: 10px;
+	width: 700px;
+}
+
+.post-image img {
+	width: 680px
+}
+
+.post-details {
+    display: grid;
+	padding: 10px;
+    justify-content: space-between;
+	grid-template-rows: auto auto 1fr auto;
+	width: 300px;
+}
+
+.photo_text_area{
+	margin-left: 60px;
+	word-wrap: break-word;
+	max-width: 300px;
+}
+
+.post-inner {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+	gap: 20px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.post-content {
+    padding: 10px 0;
+}
+
+.avatar {
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    overflow: hidden; 
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-comments {
+    padding: 10px 0;
+}
+
+.comments{
+	margin-bottom: 5px;
+	width: 300px;
+}
+.comment{
+
+	display: flex;
+	max-width: 300px;
+	word-wrap: break-word;
+	align-items: flex-start;
+	gap: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.username-link {
+    display: inline;  
+}
+
+.card__desc{
+	width: 280px;
+}
+
+.comment-text {
+    display: inline; 
+}
+
+.avatar.comment_avatar {
+    margin-right: 10px; 
+}
+
+.username_area {
+    margin-bottom: 5px;
+}
+
+.comment_avatar{
+	margin-right: 30px;
+	min-width: 40px;
+}
+
+
+.post-actions {
+    margin-top: 10px;
+}
+
+
+.panel_button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.3s;
+}
+
+
+.panel_button i {
+    font-size: 24px;
+}
+
+.like-button i.liked {
+    color: red;  /* Цвет сердца при нажатии */
+}
+
+.comment_container {
+    display: grid;
+	grid-template-columns: 1fr 30px;
+}
+
+
+

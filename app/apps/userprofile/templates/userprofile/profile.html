@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{% endblock %}
+{% block content %}
+<div class="section">
+<div class="profile-section">
+	<div class="profile-image">
+	{% if profile.avatar %}
+	{% csrf_token %}
+		<img src="{{ profile.get_url }}" alt="">
+		<input type="file" id="avatarUpload" style="display: none;">
+		<i class="fa-solid fa-circle-plus upload_btn" style="display: none;"></i>
+	{% else %}
+	{% csrf_token %}
+		<img src="{% static 'main/images/default.jpg' %}" alt="">
+		<input type="file" id="avatarUpload" style="display: none;">
+		<i class="fa-solid fa-circle-plus upload_btn" style="display: none;"></i>
+	{% endif %}
+	</div>
+	<div class="profile-menu">
+		<div class="profile-user-settings">
+			<div class="profile-user-name">{{ profile.username }}</div>
+			{% if profile_owner %}
+				<form action="" method="post">
+					{% csrf_token %}
+					<button type="submit" class="profile-btn" id="editProfileButton">Change profile</button>
+				</form>
+			{% else %}
+				<form action="{% url 'tools:follow_profile' %}" method="post">
+					{% csrf_token %}
+					{% if is_following %}
+					<input type="hidden" name="username" value="{{ profile.username }}">
+					<input type="hidden" name="follow" value="unfollow">
+					<button type="submit" value="unfollow" name="follow" class="profile-btn">
+						Unfollow
+					</button>
+					{% else %}
+					<input type="hidden" name="username" value="{{ profile.username }}">
+					<input type="hidden" name="follow" value="follow">
+					<button type="submit" value="follow" name="follow" class="profile-btn">
+						Follow
+					</button>
+					{% endif %}
+				</form>
+			{% endif %}
+			<button aria-label="profile settings" class="btn profile-settings-btn">
+				{% if profile_owner %}
+				<div class="icon-container">
+					<div class="hover-area">
+						<i class="fa-solid fa-gear"></i>
+						<a href="{% url 'userprofile:logout' request.user.username %}" class="text-link">LogOut</a>
+					</div>
+				</div>
+				{% else %}
+					<i class="fa-solid fa-bars"></i>
+				{% endif %}
+			</button>
+			
+			
+		</div>
+		<div class="profile-stats">
+			<ul>
+				<li><span class="profile-stat-count"></span>{{ post_count }} posts</li>
+				<li><span class="profile-stat-count"></span><a href="{% url 'userprofile:followers' profile.username %}">{{ profile.follow_count }} followers</a></li>
+				<li><span class="profile-stat-count"></span><a href="{% url 'userprofile:following' profile.username %}">{{ profile.following_count }} following</a></li>
+			</ul>
+		</div>
+		<div class="profile-bio">
+
+			<p>
+				<span class="profile-real-name">
+					{{ profile.bio }}
+				</span>
+				
+			</p>
+		</div>
+	</div>
+</div>
+<!-- end profile-section -->
+<div class="gallary-section">
+	{%for photo in photos %}
+		<div class="gallary">
+			<div class="photo" data-id="{{photo.id}}">
+				<a href="{% url 'userpost:userpost' photo.pk %}">
+					<div class="gallary-item" tabindex="0">
+						<img class="gallary-image photo" src="{{ photo.get_url }}" alt="">
+					</div>
+				</a>
+				<button class="deleteButton" style="display: none;">X</button>
+			</div>			
+			
+		</div>
+		{% endfor %}
+</div>
+</div>
+
+
+{% endblock %}

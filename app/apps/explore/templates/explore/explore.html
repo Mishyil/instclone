@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="gallary-section">
+{% for post in posts %}
+<div class="gallary">
+	<div class="photo" data-id="{{photo.id}}">
+		<a href="{% url 'userpost:userpost' post.pk %}">
+			<div class="gallary-item" tabindex="0">
+				<img class="gallary-image photo" src="{{ post.get_url }}" alt="">
+			</div>
+		</a>
+	</div>
+</div>
+{% endfor %}
+</div>
+
+{% endblock %}

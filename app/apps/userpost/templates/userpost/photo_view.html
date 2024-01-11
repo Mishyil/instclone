@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% load custom_filters %}
+{% block content %}
+{% load static %}
+<div class="post-container">
+    <div class="post-image">
+        <img src="{{ photo.get_url }}" alt="Post Image">
+    </div>
+
+    <div class="post-details">
+        <div class="post-inner">
+            <header class="post-header">
+                <div class="avatar">
+				{% if photo.user.avatar %}
+					<img src="{{ photo.user.get_url }}" alt="">
+				{% else %}
+					<img src="{% static 'main/images/default.jpg' %}" alt="">
+				{% endif %}
+				</div>
+                <div class="name_and_date">
+					<a href="{% url 'userprofile:userprofile' user.username %}">
+                    <span class="user-name">{{ photo.user.username }}</span>
+					</a>
+                </div>
+				<span></span>
+				<span class="user-location"></span>
+            </header>
+			</div>
+		<div class="photo_text_area">{{ photo.caption }}</div>
+		<div class="card__desc">
+			<div class="post-comments">
+				{% for comment in photo.comments.all %}
+				<div class="comment">
+					<div class="avatar comment_avatar">
+						{% if comment.user.avatar %}
+						<img src="{{ comment.user.get_url }}" alt="">
+						{% else %}
+						<img src="{% static 'main/images/default.jpg' %}" alt="">
+						{% endif %}
+					</div>
+					<div class="text_comment_area">
+							<a href="{% url 'userprofile:userprofile' comment.user.username %}" class="username-link">
+								<strong class="username">{{ comment.user.username|lower}}</strong>
+							</a>
+						<p class="comment-text">{{ comment.text }}</p>
+					</div>  
+				</div>
+				{% endfor %}
+				</div> 
+		</div>
+        <div class="interaction__panel">
+			<button class="like-button panel_button" data-photo-id="{{ photo.id }}">
+				<i class="fa-solid fa-heart {% if photo.id in liked_photo_ids %}liked{% endif %}"></i>
+			</button>
+            <button class="panel_button"><i class="fa-regular fa-comment"></i></button>
+            <button class="panel_button"><i class="fa-regular fa-paper-plane"></i></button>
+            <button class="panel_button last-btn"><i class="fa-regular fa-floppy-disk"></i></button>
+        </div>
+		<form method="post" action="{% url 'tools:post_comment' %}" >
+			<div class="comment_container">
+			{% csrf_token %}
+			<input type="hidden" name="form_type" value="comment_form">
+			<input type="hidden" name="id" value="{{ photo.pk }}">
+			<input type="text" name="text" class="comment__area" placeholder="Add a comment..." value="{{ form.text.value|default:'' }}" required>
+			<button type="submit" class="card__send__comment" name="comment-btn">Send</button>
+		</div>
+		</form>
+    </div>
+</div>
+
+{% endblock %}

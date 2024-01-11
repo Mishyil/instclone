@@ -1,0 +1,147 @@
+.content {
+	grid-area: content;
+	display: flex;
+	flex-direction: column;
+	grid-template-columns: 1fr;
+	grid-gap: 12px;
+	padding: 16px;
+	padding-top: 50px;
+	align-content: start;
+	justify-items: center;
+	align-items: center;
+}
+
+.section{
+	padding-top: 40px;
+}
+
+
+.card {
+	display: flex;
+	flex-direction: column;
+	width: 470px;
+	background-color: white;
+	padding: 8px;
+	border-radius: 4px;
+}
+
+.card_header{
+	display: flex;
+	flex-direction: row;
+	grid-gap: 5px;
+	margin-bottom: 10px;
+	font-size: 16px;
+	justify-items: center;
+	align-items: center;
+}
+
+
+.card_header_avatar {
+    width: 35px; 
+    height: 35px; 
+    border-radius: 50%; 
+    overflow: hidden; 
+}
+
+.card_header_avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Убедитесь, что изображение будет правильно масштабироваться и заполнять весь блок */
+}
+
+
+.card .card__content {
+	flex-grow: 1;
+}
+
+.content_image{
+	z-index: -1;
+}
+
+.photo{
+	max-width: 450px; /* Указывает максимальную ширину изображения */
+	width: 100%;
+	height: auto;
+}
+
+.card .card__desc {
+	font-size: 16px;
+	text-transform: initial;
+}
+
+.interaction__panel{
+	display: grid;
+	grid-template-columns: 22px 22px 22px 1fr;
+	grid-auto-flow: column;
+	gap: 12px;
+	margin-left: 6px;
+	justify-content: end;
+	justify-items: right;
+}
+
+.panel_button {
+background: transparent;
+border: none;
+font-size: 20px;
+outline: none;
+}
+
+.last-btn{
+	padding: 0;
+	border-right: 10px;
+}
+
+.panel_button i:hover{
+ cursor: pointer;
+}
+
+
+.card__new__comment {
+	display: flex;
+	justify-content: space-between;
+	background: none;
+}
+
+.comment__area {
+	border: none;
+}
+
+.comment__area:focus {
+	border: 0;
+	outline: none;
+}
+
+
+.card__send__comment {
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	display: none;
+}
+
+> .btn {
+	background: transparent;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.fa-heart {
+    color: black;
+}
+
+.fa-heart.liked {
+    color: red;
+}
+
+.comment {
+    display: flex; /* используем flexbox для выравнивания элементов в одной строке */
+    align-items: center; /* выравниваем элементы по вертикали */
+}
+
+.comment_container{
+	padding-bottom: 20px;
+	border-bottom: 1px solid #dee2e6;
+}

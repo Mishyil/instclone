@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="followers-content">
+	<ul class="followers-list">
+		{% for follower in followers %}
+			<li class="follower-card">
+				<a href="{% url 'userprofile:userprofile' follower.username %}">
+					<img class="followers-photo" src="{% static 'main/images/default.jpg' %}" alt="" width="70">
+					<div class="follower-name">{{ follower.username }}</div>
+				</a>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.grid {
+	height: 100vh;
+	display: grid;
+
+	grid-template-rows: 1fr 100px;
+	grid-template-columns: 260px 1fr;
+	grid-template-areas: "sidebar content" "sidebar footer";
+	> div {
+	display: grid;
+
+	}
+}
+
+.sidebar {
+	grid-area: sidebar;
+}
+
+.content {
+	grid-area: content;
+}
+
+.footer {
+	grid-area: footer;
+}

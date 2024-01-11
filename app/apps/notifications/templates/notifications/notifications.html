@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block content %}
+
+<div class="notifications">
+	<ul class="notification-list">
+		{% for notif in notifications %}
+			<li>
+				<div class="notification-container">
+					<div class="notification-avatar">
+						<a href="#">
+							{% if notif.notification.user.avatar %}
+								<img src="{{ notif.notification.user.get_url }}" class="notification-avatar" alt="">
+							{% else %}
+								<img src="{% static 'main/images/default.jpg' %}" class="notification-avatar" alt="">
+							{% endif %}
+						</a>
+					</div>
+					<div class="notification-content">
+					{% with notif_type=notif.notification.notification_type %}
+					{% if notif_type == 1 %}
+					<p class="notification-content-text">
+						<span><strong class="user-name">{{ notif.notification.user.username }} </strong></span>
+						<span> liked you post.</span>
+						<span class="notification-time">{{ notif.notification.create_at|time_since }}</span>
+					</p>
+					<div class="notification-post">
+						<a href="#">
+							<img src="{{ notif.notification.post.get_url }}" class="notification-post-img" alt="">
+						</a>
+					</div>
+					{% elif notif_type == 2 %}
+					<p class="notification-content-text">
+						<span><strong class="user-name">{{ notif.notification.user.username }} </strong></span>
+						<span> started foloowing you. </span>
+						<span class="notification-time">{{ notif.notification.create_at|time_since }}</span>
+					</p>
+					{% elif notif_type == 3 %}
+					<p class="notification-content-text">
+						<span><strong class="user-name">{{ notif.notification.user.username }} </strong></span>
+						<span> commented your post: <span>{{ notif.notification.comment.text }}</span></span>
+						<span class="notification-time">{{ notif.notification.create_at|time_since }}</span>
+					</p>
+					<div class="notification-post">
+						<a href="#">
+							<img src="{{ notif.notification.post.get_url }}" class="notification-post-img" alt="">
+						</a>
+					</div>
+					{% elif notif_type == 4 %}
+					<p class="notification-content-text">
+						<span><strong class="user-name">{{ notif.notification.user.username }} </strong></span>
+						<span> create new post: </span>
+						<span class="notification-time">{{ notif.notification.create_at|time_since }}</span>
+					</p>
+					<div class="notification-post">
+						<a href="#">
+							<img src="{{ notif.notification.post.get_url }}" class="notification-post-img" alt="">
+						</a>
+					</div>
+					{% endif %}
+					{% endwith %}
+					</div>
+				</div>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+
+{% endblock %}

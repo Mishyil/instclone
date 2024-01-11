@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	{% block title %}{% endblock %}
+	<link type="text/css" rel="stylesheet" href="{% static 'main/css/main.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+ <div class="grid">
+	<div class="sidebar">
+		<a href="/">
+			<img src="{% static 'main/images/piclink.png' %}" alt="Логотип" width="120px">
+		</a>
+		<nav class="sidebar-nav">
+			<ul>
+				<a href="/"><li><i class="fas fa-home"></i>Home</li></a>
+				<a href="{% url 'explore:explore' %}"><li><i class="fa-regular fa-compass"></i> Explore</li></a>
+				{% if user.is_authenticated %}
+				<a href="{% url 'notifications:notifications' %}"><li><i class="fa-regular fa-heart"></i> Notification <span id="notificationCounter"></span></li></a>
+				<li id="openModal" class="custom-button"><i class="fa-solid fa-plus"></i> Create</li>
+				<div id="myModal" class="modal">
+					<div class="modal-content">
+							<span class="close">&times;</span>
+							<form method="post" class="header-upload-form" enctype="multipart/form-data" action="{% url 'tools:upload_photo' %}">
+									{% csrf_token %}
+									<h2>Create new post</h2>
+									<label class="custom-upload-btn">
+										<input class="upload-photo-btn" type="file" name="file" required onchange="showSelectedPhoto(event)">
+										Upload Photo
+									</label>	
+								
+								<button id="uploadButton" style="display: none;" name="upload-photo" type="submit">Upload</button>
+								
+								<button id="confirmButton" class="confirm-upload-btn" style="display: none;" type="button" onclick="confirmUpload()">Confirm</button>
+								
+								<div id="selectedPhotoContainer" class="selector-photo" style="display: none;">
+										<img class="selected-photo" id="selectedPhoto" src="" alt="Selected Photo">
+								</div>
+							</form>
+					</div>
+				</div>
+				<a href="{% url 'userprofile:userprofile' request.user.username %}"><li><i class="fa-regular fa-user"></i> Profile</li></a>
+				{% endif %}
+			</ul>
+		</nav>
+	</div>
+	<div class="content">
+		{% block scripts %} {% endblock %}
+		{% block content %} {% endblock %}
+	</div>
+	<div class="footer">{{ debug }}</div>
+ </div>	
+
+	
+</body>
+<script src="{% static 'main/js/main.js' %}" defer></script>
+<script src="{% static 'notifications/js/notifications.js' %}" defer></script>
+</html>
